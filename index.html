@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Chrome Home Screen</title>
+  <style>
+    body {
+      background-color: #1c1c1c;
+      color: white;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 50px;
+    }
+    .logo {
+      width: 150px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+    .search-bar {
+      background-color: #333;
+      width: 80%;
+      max-width: 500px;
+      padding: 15px;
+      border-radius: 50px;
+      margin-bottom: 40px;
+      font-size: 16px;
+      color: #bbb;
+      text-align: center;
+    }
+    .shortcut-container {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 20px;
+      width: 90%;
+      max-width: 800px;
+    }
+    .shortcut {
+      text-align: center;
+    }
+    .shortcut img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 5px;
+    }
+    .shortcut p {
+      color: #bbb;
+      font-size: 12px;
+      margin: 0;
+    }
+    a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Logo -->
+  <div class="logo" id="logo">
+    <img id="logoImage" src="" alt="Logo">
+  </div>
+
+  <!-- Search bar (text only, non-functional) -->
+  <div class="search-bar">
+    Telusuri atau ketik halaman web
+  </div>
+
+  <!-- Shortcuts Grid -->
+  <div class="shortcut-container" id="shortcutContainer">
+    <!-- Shortcuts will be injected here -->
+  </div>
+</div>
+
+<script>
+  // Load JSON file
+  fetch('shortcuts.json')
+    .then(response => response.json())
+    .then(data => {
+      // Set the logo
+      document.getElementById('logoImage').src = data.logo.image;
+      document.getElementById('logo').onclick = function() {
+        window.location.href = data.logo.link;
+      };
+
+      // Render shortcuts
+      const shortcutContainer = document.getElementById('shortcutContainer');
+      let activeShortcuts = data.shortcuts.filter(shortcut => shortcut.active); // Only active shortcuts
+
+      activeShortcuts.forEach(shortcut => {
+        const shortcutElement = document.createElement('div');
+        shortcutElement.classList.add('shortcut');
+        shortcutElement.innerHTML = `
+          <a href="${shortcut.link}" target="_blank">
+            <img src="${shortcut.icon}" alt="${shortcut.name}">
+            <p>${shortcut.name}</p>
+          </a>
+        `;
+        shortcutContainer.appendChild(shortcutElement);
+      });
+    })
+    .catch(error => console.error('Error loading JSON:', error));
+</script>
+
+</body>
+  </html>
+    
