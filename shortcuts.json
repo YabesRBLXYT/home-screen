@@ -1,6 +1,6 @@
 {
   "logo": {
-    "image": "https://raw.githubusercontent.com/YabesRBLXYT/home-screen/refs/heads/main/image/20231106_160541.png",
+    "image": "image/20231106_160541.png",
     "link": "https://github.com"
   },
   "shortcuts": [
@@ -8,6 +8,5 @@
     { "name": "free robux", "link": "https://robux.com", "icon": "path/to/robux-icon.png", "active": false },
     { "name": "Unduh APK", "link": "https://apk.com", "icon": "path/to/apk-icon.png", "active": true },
     { "name": "M88", "link": "https://m88.com", "icon": "path/to/m88-icon.png", "active": true }
-    // Add more shortcuts as needed
   ]
 }
